@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<jbossesb parameterReloadSecs="5"
+ xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd">
+ <providers>
+  <jms-provider connection-factory="ConnectionFactory" name="JBossMessaging">
+   <jms-bus busid="gatewayChannel">
+    <jms-message-filter dest-name="queue/request_gw" dest-type="QUEUE"/>
+   </jms-bus>
+   <jms-bus busid="esbChannel">
+    <jms-message-filter dest-name="queue/request_esb" dest-type="QUEUE"/>
+   </jms-bus>
+  </jms-provider>
+ </providers>
+ <services>
+  <service category="org.jboss.ddoyle"
+   description="Spring Based Service" name="SpringBasedService">
+   <listeners>
+    <jms-listener busidref="gatewayChannel" is-gateway="true" name="JMS-Gateway-Listener"/>
+    <jms-listener busidref="esbChannel" name="ESB-Listener"/>
+   </listeners>
+   <actions mep="OneWay">
+    <action class="org.jboss.soa.esb.actions.SystemPrintln" name="SystemOutPrintLineAction">
+     <property name="message" value="Action executed."/>
+    </action>
+    <action class="org.jboss.soa.esb.test.action.TestDIAction" name="TestDIAction">
+     <property name="context-key" value="myContext"/>
+    </action>
+   </actions>
+  </service>
+ </services>
+</jbossesb>
