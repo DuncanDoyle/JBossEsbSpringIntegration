@@ -6,6 +6,20 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<description>Client for the ESB package with Spring Integration</description>
 	<dependencies>
+		<dependency>
+			<groupId>org.jboss.soa</groupId>
+			<artifactId>jboss-javaee</artifactId>
+			<version>5.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jboss-javaee.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.soa.esb</groupId>
+			<artifactId>jbossesb-rosetta</artifactId>
+			<version>5.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jbossesb-rosetta.jar</systemPath>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
